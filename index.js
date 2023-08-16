@@ -6,6 +6,7 @@ const app = express();
 const mongoose = require('mongoose')
 
 app.use(cors());
+app.use(express.urlencoded({ extended: true }));
 
 
 mongoose.connect(process.env.MONGO_URI, {
