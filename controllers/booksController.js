@@ -10,7 +10,8 @@ router.get('data/seed', (req, res) => {
             res.sendStatus(200);
         })
         .catch(e => {
-            console.error(e)
+            console.error(e);
+            res.sendStatus(500);
         });
 });
 
@@ -21,6 +22,7 @@ router.get('/', async (req, res) => {
         res.send(foundBooks);
     } catch (e) {
         console.error(e);
+        res.sendStatus(500);
     }
 });
 //Create
@@ -31,6 +33,27 @@ router.post('/', async (req, res) => {
         res.send(200)
     } catch (e) {
         console.error(e);
+        res.sendStatus(500);
+    }
+})
+// update 
+router.put('/:id', async (req, res)=>{
+    try{
+        await Book.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        res.sendStatus(201);
+    } catch(e){
+        console.error(e);
+        res.sendStatus(500);
+    }
+});
+//Destroy
+router.delete('/:id', async (req, res)=>{
+    try{
+        await Book.findByIdAndDelete(req.params.id, { new: true });
+        res.sendStatus(201);
+    } catch(e){
+        console.error(e);
+        res.sendStatus(500);
     }
 })
 
